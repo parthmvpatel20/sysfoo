@@ -14,7 +14,6 @@ phases:
       - echo removing the staging.env and copying the new staging.env
       - echo Building Image...
       - docker build . -q -f Dockerfile -t $REPOSITORY_URL:$Today-dev
-      - docker tag $REPOSITORY_URL:$Today-dev $REPOSITORY_URL:dev
       - echo Image Build ...
       - echo UK Server Build Find.
   post_build:
