@@ -13,7 +13,7 @@ phases:
       - echo Start Build for UK Server
       - echo removing the staging.env and copying the new staging.env
       - echo Building Image...
-      - docker build . -q -f Dockerfile-stag -t $REPOSITORY_URL:$Today-dev
+      - docker build . -q -f Dockerfile -t $REPOSITORY_URL:$Today-dev
       - docker tag $REPOSITORY_URL:$Today-dev $REPOSITORY_URL:dev
       - echo Image Build ...
       - echo UK Server Build Find.
