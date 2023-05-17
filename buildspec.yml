@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Pre_build action
+      - Today=`date '+%Y%m%d%H%M'`
+      - echo Login into AWS ECR
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 622361742002.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URL=622361742002.dkr.ecr.us-east-1.amazonaws.com/test
+  build:
+    commands:
+      - echo Start Build for UK Server
+      - echo removing the staging.env and copying the new staging.env
+      - echo Building Image...
+      - docker build . -q -f Dockerfile-stag -t $REPOSITORY_URL:$Today-dev
+      - docker tag $REPOSITORY_URL:$Today-dev $REPOSITORY_URL:dev
+      - echo Image Build ...
+      - echo UK Server Build Find.
+  post_build:
+    commands:
+      - echo Pushing the images to ECR
+      - docker push $REPOSITORY_URL:$Today
+      - docker push $REPOSITORY_URL:prod
+      - echo Images pushed to ECR
